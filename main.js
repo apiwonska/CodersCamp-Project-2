@@ -5,10 +5,13 @@ const questionDiv = document.querySelector(".quiz__question");
 const answersLiItems = document.querySelectorAll(".quiz__answers-item");
 const scoreDiv = document.querySelector(".quiz__score");
 const questionNoSpan = document.querySelector(".quiz__question-no");
+const questionTotalSpan = document.querySelector(".quiz__total");
 
 let score = 0;
 let questionIndex = 0;
+const questionTotal = 10;
 const questions = [];
+questionTotalSpan.innerText = questionTotal;
 
 const toggleQuizVisibility = () => {
   homeSection.classList.toggle("is-hidden");
@@ -16,7 +19,7 @@ const toggleQuizVisibility = () => {
 }
 
 const getQuestions = async () => {
-  const endpoint = `https://opentdb.com/api.php?amount=5&difficulty=easy&type=multiple&category=19`;
+  const endpoint = `https://opentdb.com/api.php?amount=${questionTotal}&difficulty=easy&type=multiple`;
   await fetch(endpoint)
     .then(response => {
       if (response.status == 200) {
@@ -45,6 +48,7 @@ const startQuiz = () => {
 
 const getQuestion = () => {
   if (questionIndex < questions.length) {
+    questionNoSpan.innerText = questionIndex + 1;
     const questionObj = questions[questionIndex];
     const answersList = [questionObj.correct_answer].concat(questionObj.incorrect_answers);
     shuffleArr(answersList);
@@ -62,7 +66,10 @@ const getQuestion = () => {
 
 const processAnswer = (e) => {
   let answerCorrect = e.target.dataset.index == e.target.correctAnswerIndex ? true : false;
-  if (answerCorrect) score += 10;
+  if (answerCorrect) {
+    score += 10;
+    scoreDiv.innerText = score;
+  }
   answersLiItems.forEach((answer, i) => {
     if (!answerCorrect && i == e.target.dataset.index) {
       answer.classList.add('quiz__answers-item--wrong');
