@@ -81,17 +81,20 @@ body {
   -webkit-box-shadow: 0 0 7px lightgray;
           box-shadow: 0 0 7px lightgray;
   border-radius: 10px;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
 }
 
-.quiz__submit-btn {
-  width: 80%;
-  font-size: 1rem;
-  border: 1px lightgray solid;
-  -webkit-box-shadow: 0 0 7px lightgray;
-          box-shadow: 0 0 7px lightgray;
-  border-radius: 10px;
-  padding: 15px;
-  text-transform: uppercase;
+.quiz__answers-item--correct {
+  background-color: green;
+}
+
+.quiz__answers-item--wrong {
+  background-color: red;
+}
+
+.quiz__answers-item--disabled {
+  background-color: lightgray;
 }
 
 .quiz__panel {

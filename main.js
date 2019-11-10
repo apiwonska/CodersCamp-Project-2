@@ -49,13 +49,39 @@ const getQuestion = () => {
     const answersList = [questionObj.correct_answer].concat(questionObj.incorrect_answers);
     shuffleArr(answersList);
     const correctAnswerIndex = answersList.indexOf(questionObj.correct_answer);
+
     questionDiv.innerHTML = questionObj.question;
     answersLiItems.forEach((answer, i) => {
       answer.className = "quiz__answers-item";
       answer.innerHTML = answersList[i];
-      answer.addEventListener("click", () => {});
+      answer.addEventListener("click", processAnswer);
+      answer.correctAnswerIndex = correctAnswerIndex;
     });
   }
+}
+
+const processAnswer = (e) => {
+  let answerCorrect = e.target.dataset.index == e.target.correctAnswerIndex ? true : false;
+  if (answerCorrect) score += 10;
+  answersLiItems.forEach((answer, i) => {
+    if (!answerCorrect && i == e.target.dataset.index) {
+      answer.classList.add('quiz__answers-item--wrong');
+    } else if (i === e.target.correctAnswerIndex) {
+      answer.classList.add('quiz__answers-item--correct');
+    } else {
+      answer.classList.add('quiz__answers-item--disabled');
+    }
+  });
+
+  answersLiItems.forEach((answer, ind) => {
+    answer.removeEventListener("click", processAnswer);
+  })
+
+  setTimeout(() => {
+    questionIndex++;
+    getQuestion();
+  }, 1000)
+
 }
 
 startBtn.addEventListener("click", startQuiz);
