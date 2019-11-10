@@ -11,7 +11,6 @@ let questionIndex = 0;
 const questions = [];
 
 const toggleQuizVisibility = () => {
-  console.log("toggle");
   homeSection.classList.toggle("is-hidden");
   quizSection.classList.toggle("is-hidden");
 }
@@ -32,10 +31,31 @@ const getQuestions = async () => {
     .catch(err => console.log(err));
 }
 
+const shuffleArr = (arr) => {
+  for (let i = 0; i < arr.length; i++) {
+    let j = Math.floor(Math.random() * 4);
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+}
+
 const startQuiz = () => {
   toggleQuizVisibility();
-  getQuestions();
-  console.log(questions);
+  getQuestions().then(() => getQuestion());
+}
+
+const getQuestion = () => {
+  if (questionIndex < questions.length) {
+    const questionObj = questions[questionIndex];
+    const answersList = [questionObj.correct_answer].concat(questionObj.incorrect_answers);
+    shuffleArr(answersList);
+    const correctAnswerIndex = answersList.indexOf(questionObj.correct_answer);
+    questionDiv.innerHTML = questionObj.question;
+    answersLiItems.forEach((answer, i) => {
+      answer.className = "quiz__answers-item";
+      answer.innerHTML = answersList[i];
+      answer.addEventListener("click", () => {});
+    });
+  }
 }
 
 startBtn.addEventListener("click", startQuiz);
