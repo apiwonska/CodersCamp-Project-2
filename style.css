@@ -150,7 +150,7 @@ body {
 
 .panel__progress {
   background-color: var(--main-color);
-  width: 30%;
+  width: 0%;
   height: 16px;
 }
 
