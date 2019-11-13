@@ -1,47 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Quiz Time</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css"
+    />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <title>Quiz</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" />
-</head>
-
-<body>
-  <section class="home">
-    <div class="home__container">
-      <h1 class="home__title">Quiz Game</h1>
-      <button class="home__start">Start!</button>
-    </div>
-  </section>
-
-  <section class="quiz is-hidden">
-    <div class="quiz__panel">
-      <div class="quiz__home-btn"><i class="fas fa-home"></i></div>
-      <div class="quiz__score">0</div>
-      <div class="quiz__progres">
-        <span class="quiz__question-no">0</span>
-        &nbsp/&nbsp
-        <span class="quiz__total">10</span>
+  <body>
+    <section class="home ">
+      <div class="home__container">
+        <h1 class="home__title">Quiz Time</h1>
+        <h2 class="home__subtitle">Play, learn, test yourself...</h2>
+        <button class="home__start">Start!</button>
       </div>
-    </div>
-    <div class="quiz__task">
-      <div class="quiz__question"></div>
-      <div class="quiz__answers">
-        <ul class="quiz__answers-list">
-          <li class="quiz__answers-item" data-index="0"></li>
-          <li class="quiz__answers-item" data-index="1"></li>
-          <li class="quiz__answers-item" data-index="2"></li>
-          <li class="quiz__answers-item" data-index="3"></li>
+    </section>
+
+    <section class="quiz is-hidden">
+      <div class="panel">
+        <ul class="panel__list">
+          <li class="panel__item">
+            <a href="" class="panel__link"><i class="fas fa-arrow-left"></i></a>
+          </li>
+          <li class="panel__item">
+            <div class="panel__label">Score:</div>
+            <div class="panel__score">0</div>
+          </li>
+          <li class="panel__item">
+            <div class="panel__label">
+              <span class="panel__question-no">0</span>
+              &nbsp/&nbsp
+              <span class="panel__total">10</span>
+            </div>
+            <div class="panel__progress-bar">
+              <div class="panel__progress"></div>
+            </div>
+          </li>
         </ul>
       </div>
-    </div>
-  </section>
 
-  <script src="main.js" type="text/javascript"></script>
-</body>
+      <div class="question">
+        <div class="question__content"></div>
+        <div class="question__answers">
+          <ul class="question__answers-list">
+            <li class="question__answers-item" data-index="0"></li>
+            <li class="question__answers-item" data-index="1"></li>
+            <li class="question__answers-item" data-index="2"></li>
+            <li class="question__answers-item" data-index="3"></li>
+          </ul>
+        </div>
+      </div>
+    </section>
 
+    <script src="main.js" type="text/javascript"></script>
+  </body>
 </html>

@@ -1,11 +1,12 @@
 const homeSection = document.querySelector(".home");
 const quizSection = document.querySelector(".quiz");
 const startBtn = document.querySelector(".home__start");
-const questionDiv = document.querySelector(".quiz__question");
-const answersLiItems = document.querySelectorAll(".quiz__answers-item");
-const scoreDiv = document.querySelector(".quiz__score");
-const questionNoSpan = document.querySelector(".quiz__question-no");
-const questionTotalSpan = document.querySelector(".quiz__total");
+const questionDiv = document.querySelector(".question__content");
+const answersLiItems = document.querySelectorAll(".question__answers-item");
+const scoreDiv = document.querySelector(".panel__score");
+const questionNoSpan = document.querySelector(".panel__question-no");
+const questionTotalSpan = document.querySelector(".panel__total");
+const progressDiv = document.querySelector(".panel__progress");
 
 let score = 0;
 let questionIndex = 0;
@@ -49,6 +50,7 @@ const startQuiz = () => {
 const getQuestion = () => {
   if (questionIndex < questions.length) {
     questionNoSpan.innerText = questionIndex + 1;
+    progressDiv.style.width = `${(questionIndex + 1) * 100 / questionTotal}%`;
     const questionObj = questions[questionIndex];
     const answersList = [questionObj.correct_answer].concat(questionObj.incorrect_answers);
     shuffleArr(answersList);
@@ -56,7 +58,7 @@ const getQuestion = () => {
 
     questionDiv.innerHTML = questionObj.question;
     answersLiItems.forEach((answer, i) => {
-      answer.className = "quiz__answers-item";
+      answer.className = "question__answers-item";
       answer.innerHTML = answersList[i];
       answer.addEventListener("click", processAnswer);
       answer.correctAnswerIndex = correctAnswerIndex;
@@ -72,12 +74,11 @@ const processAnswer = (e) => {
   }
   answersLiItems.forEach((answer, i) => {
     if (!answerCorrect && i == e.target.dataset.index) {
-      answer.classList.add('quiz__answers-item--wrong');
+      answer.classList.add('question__answers-item--wrong');
     } else if (i === e.target.correctAnswerIndex) {
-      answer.classList.add('quiz__answers-item--correct');
-    } else {
-      answer.classList.add('quiz__answers-item--disabled');
+      answer.classList.add('question__answers-item--correct');
     }
+    answer.classList.add('question__answers-item--disabled');
   });
 
   answersLiItems.forEach((answer, ind) => {
